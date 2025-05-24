@@ -1,17 +1,17 @@
 const express = require("express");
 const app = express();
 
-app.post("/submit", (req, res, next) => {
+app.post("/contact-us", (req, res, next) => {
   console.log("got the post request");
 });
 
-app.use("/contact-us", (req, res, next) => {
+app.get("/contact-us", (req, res, next) => {
   console.log("middleware handing path /contact-us");
   res.send(`
     <html>
     <head><title>Contact-Us</title></head>
     <body>
-        <form action="/submit" method="post">
+        <form action="/contact-us" method="post">
         <input type="text" name="name" placeholder="Enter your name"/>
         <input type="email" name="email" placeholder="Enter your email"/>
         <input type="submit" name="Submit">
