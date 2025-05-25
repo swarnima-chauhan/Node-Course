@@ -21,7 +21,7 @@ app.use("/host", hostRouter);
 app.use(express.static(path.join(rootDir, "public")));
 
 app.use((req, res, next) => {
-  res.render("404", { pageTitle: "Page not found" });
+  res.render("404", { pageTitle: "Page not found", currentPage: "404" });
 });
 
 app.listen(3000, () => {

@@ -12,7 +12,11 @@ const { registeredHomes } = require("./hostRouter");
 userRouter.get("/", (req, res, next) => {
   console.log(registeredHomes);
   // res.sendFile(path.join(rootDir, "views", "home.html"));
-  res.render("home", { registeredHomes, pageTitle: "airbnb home" });
+  res.render("home", {
+    registeredHomes,
+    pageTitle: "airbnb Home",
+    currentPage: "home",
+  });
 });
 
 module.exports = userRouter;
