@@ -1,5 +1,5 @@
 //Core Modules
-const path = require("path");
+// const path = require("path");
 
 //External modules
 const express = require("express");
@@ -11,7 +11,8 @@ const { registeredHomes } = require("./hostRouter");
 
 userRouter.get("/", (req, res, next) => {
   console.log(registeredHomes);
-  res.sendFile(path.join(rootDir, "views", "home.html"));
+  // res.sendFile(path.join(rootDir, "views", "home.html"));
+  res.render("home", { registeredHomes, pageTitle: "airbnb home" });
 });
 
 module.exports = userRouter;

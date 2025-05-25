@@ -10,7 +10,7 @@ const rootDir = require("../utils/pathUtil");
 const hostRouter = express.Router();
 
 hostRouter.get("/add-home", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "../", "views", "addHome.html"));
+  res.render("addHome", { pageTitle: "Add Home to airbnb" });
 });
 
 const registeredHomes = [];
@@ -22,7 +22,7 @@ hostRouter.post("/add-home", (req, res, next) => {
     req.body.houseName
   );
   registeredHomes.push({ houseName: req.body.houseName });
-  res.sendFile(path.join(rootDir, "views", "homeAdded.html"));
+  res.render("homeAdded", { pageTitle: "Home Added Successfully" });
 });
 
 exports.hostRouter = hostRouter;
