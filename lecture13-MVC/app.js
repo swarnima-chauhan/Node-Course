@@ -8,6 +8,7 @@ const express = require("express");
 const userRouter = require("./routes/userRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtil");
+const errorsController = require("./controllers/errors");
 
 const app = express();
 
@@ -20,9 +21,7 @@ app.use("/host", hostRouter);
 
 app.use(express.static(path.join(rootDir, "public")));
 
-app.use((req, res, next) => {
-  res.render("404", { pageTitle: "Page not found", currentPage: "404" });
-});
+app.use(errorsController.pageNotFound);
 
 app.listen(3000, () => {
   console.log(`Server running on http://localhost:3000`);
