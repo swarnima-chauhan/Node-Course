@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const rootDir = require("../utils/pathUtil");
+const homeDataPath = path.join(rootDir, "data", "homes.json");
 
 module.exports = class Home {
   constructor(houseName, price, location, rating, photoUrl) {
@@ -16,7 +17,6 @@ module.exports = class Home {
     this.id = Math.random().toString();
     Home.fetchAll((registeredHomes) => {
       registeredHomes.push(this);
-      const homeDataPath = path.join(rootDir, "data", "homes.json");
       fs.writeFileSync(
         homeDataPath,
         JSON.stringify(registeredHomes),
@@ -28,7 +28,6 @@ module.exports = class Home {
   }
 
   static fetchAll(callback) {
-    const homeDataPath = path.join(rootDir, "data", "homes.json");
     fs.readFile(homeDataPath, (err, data) => {
       console.log("File read", err, data);
       if (!err) {
@@ -36,6 +35,13 @@ module.exports = class Home {
       } else {
         callback([]);
       }
+    });
+  }
+
+  static findById(homeId, callback) {
+    this.fetchAll((homes) => {
+      const homeFound = homes.find((home) => home.id === homeId);
+      callback(homeFound);
     });
   }
 };
