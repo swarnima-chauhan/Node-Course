@@ -29,7 +29,6 @@ module.exports = class Home {
 
   static fetchAll(callback) {
     fs.readFile(homeDataPath, (err, data) => {
-      console.log("File read", err, data);
       if (!err) {
         callback(JSON.parse(data));
       } else {
