@@ -8,7 +8,7 @@ module.exports = class Favourite {
   static addToFavourite(homeId, callback) {
     Favourite.getFavourites((favourites) => {
       if (favourites.includes(homeId)) {
-        callback("Home already marked favourite");
+        callback("Home is already marked favourite");
       } else {
         favourites.push(homeId);
         fs.writeFile(favouriteDataPath, JSON.stringify(favourites), callback);
@@ -18,7 +18,7 @@ module.exports = class Favourite {
 
   static getFavourites(callback) {
     fs.readFile(favouriteDataPath, (err, data) => {
-      callback(err ? JSON.parse(data) : []);
+      callback(!err ? JSON.parse(data) : []);
     });
   }
 };
