@@ -23,7 +23,7 @@
                 </div>
               </div>
               <a href="/homes/<%= home.id %>" class="bg-blue-300 p-2">Details</a>
-              <button class="bg-green-300 p-2">Book</button>
+              <%- include('../partials/favourite',{home,home}) %>
             </div>
           </div>
         <% }) %>
