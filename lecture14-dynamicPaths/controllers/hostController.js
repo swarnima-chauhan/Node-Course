@@ -1,9 +1,19 @@
 const Home = require("../models/home");
 
 exports.getAddHome = (req, res, next) => {
-  res.render("host/addHome", {
+  res.render("host/edit-home", {
     pageTitle: "Add Home to airbnb",
     currentPage: "addHome",
+  });
+};
+
+exports.getEditHome = (req, res, next) => {
+  const homeId = req.params.homeId;
+  const editing = req.query.editing === "true";
+  res.render("host/edit-home", {
+    pageTitle: "Edit your Home",
+    currentPage: "host-homes",
+    editing: editing,
   });
 };
 

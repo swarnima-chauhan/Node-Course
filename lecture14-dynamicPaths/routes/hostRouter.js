@@ -11,4 +11,6 @@ hostRouter.post("/add-home", hostController.postAddHome);
 
 hostRouter.get("/host-home-list", hostController.getHostHomes);
 
+hostRouter.get("/edit-home/:homeId", hostController.getEditHome);
+
 module.exports = hostRouter;
