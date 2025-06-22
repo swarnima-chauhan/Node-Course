@@ -14,9 +14,21 @@ module.exports = class Home {
   }
 
   save() {
-    this.id = Math.random().toString();
     Home.fetchAll((registeredHomes) => {
-      registeredHomes.push(this);
+      if (this.id) {
+        //EDIT HOME
+        registeredHomes = registeredHomes.map((home) => {
+          if (home.id === this.id) {
+            return this;
+          }
+          return home;
+        });
+      } else {
+        //ADD HOME
+        this.id = Math.random().toString();
+        registeredHomes.push(this);
+      }
+
       fs.writeFileSync(
         homeDataPath,
         JSON.stringify(registeredHomes),
