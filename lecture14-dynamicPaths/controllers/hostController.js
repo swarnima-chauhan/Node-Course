@@ -42,7 +42,7 @@ exports.postAddHome = (req, res, next) => {
 
   const home = new Home(houseName, price, location, rating, photoUrl);
   home.save();
-  res.render("host/host-home-list");
+  res.redirect("/host/host-home-list");
 };
 
 exports.postEditHome = (req, res, next) => {
@@ -52,4 +52,16 @@ exports.postEditHome = (req, res, next) => {
   home.id = id;
   home.save();
   res.redirect("/host/host-home-list");
+};
+
+exports.postDeleteHome = (req, res, next) => {
+  const homeId = req.params.homeId;
+  console.log("Deleting home with ID:", homeId);
+  Home.deleteById(homeId, (error) => {
+    if (error) {
+      console.log("error while deleting home:", error);
+    }
+    res.redirect("/host/host-home-list");
+    console.log("Done");
+  });
 };

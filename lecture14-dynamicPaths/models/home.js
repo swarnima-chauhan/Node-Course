@@ -29,13 +29,9 @@ module.exports = class Home {
         registeredHomes.push(this);
       }
 
-      fs.writeFileSync(
-        homeDataPath,
-        JSON.stringify(registeredHomes),
-        (error) => {
-          console.log("File Writing Concluded", error);
-        }
-      );
+      fs.writeFile(homeDataPath, JSON.stringify(registeredHomes), (error) => {
+        console.log("File Writing Concluded", error);
+      });
     });
   }
 
@@ -53,6 +49,13 @@ module.exports = class Home {
     this.fetchAll((homes) => {
       const homeFound = homes.find((home) => home.id === homeId);
       callback(homeFound);
+    });
+  }
+
+  static deleteById(homeId, callback) {
+    this.fetchAll((homes) => {
+      homes = homes.filter((home) => home.id !== homeId);
+      fs.writeFile(homeDataPath, JSON.stringify(homes), callback);
     });
   }
 };
