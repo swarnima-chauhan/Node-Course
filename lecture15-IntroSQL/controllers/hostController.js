@@ -60,13 +60,13 @@ exports.postEditHome = (req, res, next) => {
     req.body;
 
   const home = new Home(
-    id,
     houseName,
     price,
     location,
     rating,
     photoUrl,
-    description
+    description,
+    id
   );
   home.save();
   res.redirect("/host/host-home-list");
