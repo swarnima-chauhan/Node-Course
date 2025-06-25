@@ -50,7 +50,9 @@ exports.postAddHome = (req, res, next) => {
     photoUrl,
     description
   );
-  home.save();
+  home.save().then(() => {
+    console.log("Home saved successfully");
+  });
   res.redirect("/host/host-home-list");
   console.log("Home added successfully");
 };

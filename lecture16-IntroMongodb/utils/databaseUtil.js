@@ -25,5 +25,5 @@ const getDB = () => {
   return _db;
 };
 
-module.exports = mongoConnect;
-module.getDB = getDB;
+exports.mongoConnect = mongoConnect;
+exports.getDB = getDB;
