@@ -69,7 +69,9 @@ exports.postEditHome = (req, res, next) => {
     description,
     id
   );
-  home.save();
+  home.save().then((result) => {
+    console.log("Home updated successfully", result);
+  });
   res.redirect("/host/host-home-list");
 };
 
