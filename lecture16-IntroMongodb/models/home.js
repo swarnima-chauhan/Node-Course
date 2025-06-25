@@ -17,7 +17,10 @@ module.exports = class Home {
     return db.collection("homes").insertOne(this);
   }
 
-  static fetchAll() {}
+  static fetchAll() {
+    const db = getDB();
+    return db.collection("homes").find().toArray();
+  }
 
   static findById(homeId) {}
 
