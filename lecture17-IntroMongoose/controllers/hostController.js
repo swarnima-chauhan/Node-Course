@@ -59,20 +59,28 @@ exports.postAddHome = (req, res, next) => {
 exports.postEditHome = (req, res, next) => {
   const { id, houseName, price, location, rating, photoUrl, description } =
     req.body;
+  Home.findById(id)
+    .then((home) => {
+      home.houseName = houseName;
+      home.price = price;
+      home.location = location;
+      home.rating = rating;
+      home.photoUrl = photoUrl;
+      home.description = description;
 
-  const home = new Home(
-    houseName,
-    price,
-    location,
-    rating,
-    photoUrl,
-    description,
-    id
-  );
-  home.save().then((result) => {
-    console.log("Home updated successfully", result);
-  });
-  res.redirect("/host/host-home-list");
+      home
+        .save()
+        .then((result) => {
+          console.log("Home updated successfully", result);
+        })
+        .catch((error) => {
+          console.error("Error updating home:", error);
+        });
+      res.redirect("/host/host-home-list");
+    })
+    .catch((error) => {
+      console.error("Error finding home for update:", error);
+    });
 };
 
 exports.postDeleteHome = (req, res, next) => {
