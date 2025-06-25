@@ -9,7 +9,7 @@ const storeRouter = require("./routes/storeRouter");
 const hostRouter = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
-const { mongoConnect } = require("./utils/databaseUtil");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -24,8 +24,16 @@ app.use(express.static(path.join(rootDir, "public")));
 
 app.use(errorsController.pageNotFound);
 
-mongoConnect(() => {
-  app.listen(3000, () => {
-    console.log(`Server running on http://localhost:3000`);
+mongoose
+  .connect(
+    "mongodb+srv://root:root@completecoding.bswvdui.mongodb.net/airbnb?retryWrites=true&w=majority&appName=CompleteCoding"
+  )
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(3000, () => {
+      console.log(`Server running on http://localhost:3000`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB:", err);
   });
-});
