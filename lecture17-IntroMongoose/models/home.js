@@ -22,7 +22,7 @@ module.exports = mongoose.model("Home", homeSchema);
     this.description = description;
     *
     save()
-    fetchall()
+    find()
     findById(homeId)
     deleteById()
  */
