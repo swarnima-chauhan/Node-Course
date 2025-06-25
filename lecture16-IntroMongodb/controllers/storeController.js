@@ -1,5 +1,6 @@
 const Favourite = require("../models/favourite");
 const Home = require("../models/home");
+const { getDB } = require("../utils/databaseUtil");
 
 exports.getIndex = (req, res, next) => {
   Home.fetchAll().then((registeredHomes) => {
@@ -47,18 +48,24 @@ exports.getFavouriteList = (req, res, next) => {
 
 exports.postAddToFavourite = (req, res, next) => {
   const homeId = req.body.id;
-  const fav = new Favourite(homeId);
-  fav
-    .save()
-    .then((result) => {
-      console.log("Favourite added successfully", result);
-    })
-    .catch((error) => {
-      console.log("Error while adding to favourites: ", error);
-    })
-    .finally(() => {
-      res.redirect("/favourites");
-    });
+  const db = getDB();
+  if (db.collection("favourites").findOne({ homeId })) {
+    console.log("Home already in favourites");
+    return res.redirect("/favourites");
+  } else {
+    const fav = new Favourite(homeId);
+    fav
+      .save()
+      .then((result) => {
+        console.log("Favourite added successfully", result);
+      })
+      .catch((error) => {
+        console.log("Error while adding to favourites: ", error);
+      })
+      .finally(() => {
+        res.redirect("/favourites");
+      });
+  }
 };
 
 exports.postRemoveFromFavourite = (req, res, next) => {
