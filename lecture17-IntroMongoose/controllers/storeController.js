@@ -1,6 +1,5 @@
 const Favourite = require("../models/favourite");
 const Home = require("../models/home");
-const { getDB } = require("../utils/databaseUtil");
 
 exports.getIndex = (req, res, next) => {
   Home.fetchAll().then((registeredHomes) => {
