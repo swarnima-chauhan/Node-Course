@@ -18,6 +18,15 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.urlencoded());
+
+app.use((req, res, next) => {
+  console.log("cookie check middleware", req.get("Cookie"));
+  req.isLoggedIn = req.get("Cookie")
+    ? req.get("Cookie").split("=")[1] === "true"
+    : false;
+  next();
+});
+
 app.use(storeRouter);
 app.use("/host", (req, res, next) => {
   if (req.isLoggedIn) {
@@ -46,5 +55,3 @@ mongoose
   .catch((err) => {
     console.log("Error connecting to MongoDB:", err);
   });
-
-//nftyuuy
