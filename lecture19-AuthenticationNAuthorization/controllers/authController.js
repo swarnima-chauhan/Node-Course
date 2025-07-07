@@ -6,6 +6,21 @@ exports.getLogin = (req, res, next) => {
   });
 };
 
+exports.getSignUp = (req, res, next) => {
+  res.render("auth/signup", {
+    pageTitle: "SignUp",
+    currentPage: "SignUp",
+    isLoggedIn: false,
+  });
+};
+
+exports.postSignUp = (req, res, next) => {
+  console.log(req.body);
+  //res.cookie("isLoggedIn", true);
+  //req.session.isLoggedIn = true;
+  res.redirect("/");
+};
+
 exports.postLogin = (req, res, next) => {
   console.log(req.body);
   //res.cookie("isLoggedIn", true);
