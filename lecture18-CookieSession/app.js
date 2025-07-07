@@ -3,6 +3,7 @@ const path = require("path");
 
 //External module
 const express = require("express");
+const session = require("express-session");
 
 //local module
 const storeRouter = require("./routes/storeRouter");
@@ -18,15 +19,20 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.urlencoded());
+app.use(
+  session({
+    secret: "KnowledgeGate AI with Complete Coding",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use((req, res, next) => {
-  console.log("cookie check middleware", req.get("Cookie"));
-  req.isLoggedIn = req.get("Cookie")
-    ? req.get("Cookie").split("=")[1] === "true"
-    : false;
+  req.isLoggedIn = req.session.isLoggedIn;
   next();
 });
 
+app.use(authRouter);
 app.use(storeRouter);
 app.use("/host", (req, res, next) => {
   if (req.isLoggedIn) {
@@ -36,7 +42,6 @@ app.use("/host", (req, res, next) => {
   }
 });
 app.use("/host", hostRouter);
-app.use(authRouter);
 
 app.use(express.static(path.join(rootDir, "public")));
 
