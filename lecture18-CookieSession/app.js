@@ -4,6 +4,7 @@ const path = require("path");
 //External module
 const express = require("express");
 const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
 
 //local module
 const storeRouter = require("./routes/storeRouter");
@@ -18,12 +19,18 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+const store = new MongoDBStore({
+  uri: "mongodb+srv://root:root@completecoding.bswvdui.mongodb.net/airbnb?retryWrites=true&w=majority&appName=CompleteCoding",
+  collection: "sessions",
+});
+
 app.use(express.urlencoded());
 app.use(
   session({
     secret: "KnowledgeGate AI with Complete Coding",
     resave: false,
     saveUninitialized: true,
+    store: store,
   })
 );
 
