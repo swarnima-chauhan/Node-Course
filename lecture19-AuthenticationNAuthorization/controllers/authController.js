@@ -142,7 +142,19 @@ exports.postLogin = async (req, res, next) => {
       user: {},
     });
   }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      currentPage: "login",
+      isLoggedIn: false,
+      errors: ["Invalid Credentials"],
+      oldInput: { email },
+    });
+  }
+
   req.session.isLoggedIn = true;
+  req.session.user = user;
   res.redirect("/");
 };
 
