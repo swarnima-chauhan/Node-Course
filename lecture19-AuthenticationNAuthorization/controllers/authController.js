@@ -125,10 +125,19 @@ exports.postSignUp = [
   },
 ];
 
-exports.postLogin = (req, res, next) => {
-  console.log(req.body);
-  req.session.isLoggedIn = true;
-  res.redirect("/");
+exports.postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      currentPage: "login",
+      isLoggedIn: false,
+      errors: ["User does not exist"],
+      oldInput: { email },
+      user: {},
+    });
+  }
 };
 
 exports.postLogout = (req, res, next) => {
