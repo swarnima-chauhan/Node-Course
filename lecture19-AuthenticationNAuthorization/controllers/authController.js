@@ -8,6 +8,10 @@ exports.getLogin = (req, res, next) => {
     pageTitle: "Login",
     currentPage: "login",
     isLoggedIn: false,
+    errors: [],
+    oldInput: {
+      email: "",
+    },
   });
 };
 
@@ -138,6 +142,8 @@ exports.postLogin = async (req, res, next) => {
       user: {},
     });
   }
+  req.session.isLoggedIn = true;
+  res.redirect("/");
 };
 
 exports.postLogout = (req, res, next) => {
