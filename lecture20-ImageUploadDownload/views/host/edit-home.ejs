@@ -35,12 +35,13 @@
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
         />
         <input
-          type="text"
-          name="photoUrl"
-          value="<%= editing? home.photoUrl : '' %>"
-          placeholder="Enter Photo URL"
+          type="file"
+          name="photo"
+          multiple
+          accept="image/jpg, image/jpeg, image/png"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
         />
+
         <textarea
           name="description"
           value="<%= editing? home.description : '' %>"
