@@ -10,9 +10,12 @@ const DB_PATH =
 const app = express();
 
 const errorsController = require("./controllers/errors");
+const todoItemsRouter = require("./routes/todoItemRouter");
 
 app.use(express.urlencoded());
 app.use(express.static(path.join(rootDir, "public")));
+
+app.use("/api/todo", todoItemsRouter);
 
 app.use(errorsController.pageNotFound);
 
