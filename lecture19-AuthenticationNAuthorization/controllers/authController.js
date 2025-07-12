@@ -12,6 +12,7 @@ exports.getLogin = (req, res, next) => {
     oldInput: {
       email: "",
     },
+    user: {},
   });
 };
 
@@ -28,6 +29,7 @@ exports.getSignUp = (req, res, next) => {
       password: "",
       userType: "",
     },
+    user: {},
   });
 };
 
@@ -96,6 +98,7 @@ exports.postSignUp = [
         isLoggedIn: false,
         errors: errors.array().map((err) => err.msg),
         oldInput: { firstName, lastName, email, password, userType },
+        user: {},
       });
     }
 
@@ -123,6 +126,7 @@ exports.postSignUp = [
             isLoggedIn: false,
             errors: [err.message],
             oldInput: { firstName, lastName, email, userType },
+            user: {},
           }
         );
       });
@@ -150,6 +154,7 @@ exports.postLogin = async (req, res, next) => {
       isLoggedIn: false,
       errors: ["Invalid Credentials"],
       oldInput: { email },
+      user: {},
     });
   }
 
