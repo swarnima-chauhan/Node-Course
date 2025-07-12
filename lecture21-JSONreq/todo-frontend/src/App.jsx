@@ -36,15 +36,21 @@ function App() {
   };
 
   return (
-    <center className="todo-container">
-      <AppName />
-      <AddTodo onNewItem={handleNewItem} />
-      {todoItems.length === 0 && <WelcomeMessage></WelcomeMessage>}
-      <TodoItems
-        todoItems={todoItems}
-        onDeleteClick={handleDeleteItem}
-      ></TodoItems>
-    </center>
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 py-12 px-4">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+          <div className="p-8">
+            <AppName />
+            <AddTodo onNewItem={handleNewItem} />
+            {todoItems.length === 0 && <WelcomeMessage></WelcomeMessage>}
+            <TodoItems
+              todoItems={todoItems}
+              onDeleteClick={handleDeleteItem}
+            ></TodoItems>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
