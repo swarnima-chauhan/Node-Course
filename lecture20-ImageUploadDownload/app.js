@@ -5,6 +5,7 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const multer = require("multer");
 
 //local module
 const storeRouter = require("./routes/storeRouter");
@@ -24,7 +25,6 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-app.use(express.urlencoded());
 app.use(
   session({
     secret: "KnowledgeGate AI with Complete Coding",
@@ -33,6 +33,14 @@ app.use(
     store: store,
   })
 );
+
+const multerOptions = {
+  dest: "uploads/",
+};
+
+app.use(express.urlencoded());
+app.use(multer(multerOptions).single("photo"));
+app.use(express.static(path.join(rootDir, "public")));
 
 app.use((req, res, next) => {
   req.isLoggedIn = req.session.isLoggedIn;
@@ -49,8 +57,6 @@ app.use("/host", (req, res, next) => {
   }
 });
 app.use("/host", hostRouter);
-
-app.use(express.static(path.join(rootDir, "public")));
 
 app.use(errorsController.pageNotFound);
 
